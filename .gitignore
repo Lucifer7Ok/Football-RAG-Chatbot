@@ -1,0 +1,14 @@
+.env
+pyrefly.toml
+venv/
+.venv/
+__pycache__/
+model_cache/
+RAG football/faiss_ifab_local_db
+RAG football/data
+RAG football/cropped_images
+RAG football/dataset_images_metadata.json
+RAG football/Laws of the Game 2025_26_single pages.pdf
+RAG football/__pycache__/
+.vscode/
+Project 1
