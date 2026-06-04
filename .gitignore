@@ -1,4 +1,4 @@
-.env
+.env/
 pyrefly.toml
 venv/
 .venv/
@@ -11,4 +11,4 @@ RAG football/dataset_images_metadata.json
 RAG football/Laws of the Game 2025_26_single pages.pdf
 RAG football/__pycache__/
 .vscode/
-Project 1
+Project 1.env
