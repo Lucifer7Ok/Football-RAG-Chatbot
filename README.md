@@ -1,62 +1,71 @@
-IFAB Football Laws AI - Multi-Modal RAG System
-This project is a high-performance Retrieval-Augmented Generation (RAG) system specifically designed to query and interpret the IFAB Laws of the Game 2025/26. By combining semantic text search with visual-context awareness, it provides accurate, evidence-based answers to complex football match scenarios, complete with relevant tactical diagrams.
+# IFAB Laws AI: Multi-Modal RAG System for Football Laws & Tactical Analysis (2025/26)
+Link dataset: https://downloads.theifab.com/downloads/laws-of-the-game-202627-single-pages?l=en
 
-Key Features
-Multi-Modal Retrieval: Simultaneously retrieves precise text-based laws and relevant tactical diagrams/images from the official PDF.
+## Overview
 
-Local Embedding: Utilizes the BAAI/bge-m3 model running entirely offline on your local machine, ensuring data privacy and reducing API costs.
+**IFAB Laws AI** is an advanced Retrieval-Augmented Generation (RAG) system designed to bridge the gap between official football regulations and real-world match situations. Unlike conventional RAG applications that rely solely on textual retrieval, this system integrates **Computer Vision** capabilities to analyze tactical diagrams and visual scenarios extracted from official documents.
 
-Hybrid RAG Engine: Implements a multi-layered retrieval strategy to minimize hallucinations and ensure the AI remains grounded in official IFAB documentation.
+By combining regulatory knowledge with visual understanding, IFAB Laws AI can provide not only rule-based explanations but also supporting visual evidence, creating a more comprehensive and interpretable decision-support tool for referees, coaches, analysts, and football enthusiasts.
 
-Production-Ready API: Built with FastAPI, featuring resource management (Semaphores, Lifespan events, and Readiness flags) to prevent hardware overload during concurrent requests.
+---
 
-Automated Evaluation: Integrated with Ragas to quantitatively measure system performance based on Faithfulness, Answer Relevancy, and Context Precision.
+## Technology Stack
 
-Project Structure
-├── week1_pipeline_optimized.py    # PDF parsing & Translation pipeline
-├── week2_cropimg.py               # Vision-based tactical diagram extraction
-├── week3_chunking.py              # Local Embedding & FAISS vectorization
-├── week4_rag_engine.py            # Core RAG engine (Retriever + Generator)
-├── week5_api_server.py            # Production FastAPI server
-├── week6_frontend.py              # Streamlit chat interface
-├── week7_evaluation.py            # Automated Ragas evaluation module
-├── clean_data.py                  # Dataset normalization script
-└── Laws_of_the_game_2025_26.pdf   # Source document
+| Component                  | Technology                                  |
+| -------------------------- | ------------------------------------------- |
+| **LLM / Reasoning Engine** | Gemini 1.5 Flash (API)                      |
+| **Embedding Model**        | BAAI/bge-m3 (Local Inference)               |
+| **Vector Database**        | FAISS                                       |
+| **Backend API**            | FastAPI (Asynchronous Processing)           |
+| **Frontend**               | Streamlit                                   |
+| **Evaluation Framework**   | Ragas                                       |
+| **Document Processing**    | PyMuPDF (fitz), OpenCV, Regular Expressions |
 
-Installation
-Clone the repository:
+---
 
-Bash
-git clone <your-repo-link>
-cd ifab-rag-chatbot
-Set up a virtual environment and install dependencies:
+## System Architecture
 
-Bash
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-pip install -r requirements.txt
-Configure your API key in the .env file:
+### 1. Ingestion Layer
 
-GEMINI_API_KEY=your_actual_api_key_here
-Usage
-To operate the full system, follow this sequence:
+* Extracts and processes content from official IFAB Laws of the Game documents.
+* Performs text cleaning, normalization, and automated multi-modal chunking.
+* Detects and stores tactical diagrams alongside their associated textual context.
 
-Start the API Backend:
+### 2. Retrieval Layer
 
-python week5_api_server.py
-Launch the Frontend Interface:
+* Implements semantic search using FAISS vector indexing.
+* Retrieves both textual regulations and diagram-related metadata.
+* Supports hybrid retrieval across legal content and visual assets.
 
-In a separate terminal window, run:
+### 3. Reasoning Layer
 
-streamlit run week6_frontend.py
+* Utilizes Chain-of-Thought (CoT) prompting strategies to ensure responses follow official IFAB reasoning and decision-making processes.
+* Generates explainable answers grounded in retrieved evidence.
 
-Access: Open your browser at http://localhost:8501 to begin querying the AI assistant.
+### 4. Multi-Modal Analysis
 
-Results
-The system has achieved high-performance metrics validated through the Ragas evaluation framework:
+* Applies Computer Vision techniques to interpret tactical diagrams and match scenarios.
+* Associates visual elements with relevant IFAB regulations.
+* Provides visual references to support generated explanations.
 
-Faithfulness: ~0.92 (High groundedness in provided laws).
+---
 
-Answer Relevancy: ~0.88 (Direct and context-aware responses).
+## Performance Evaluation
 
-Context Precision: ~0.85 (Accurate retrieval of relevant laws and tactical charts).
+The system is evaluated using the **Ragas** framework to ensure factual accuracy, retrieval quality, and overall reliability.
+
+| Metric                | Score    | Interpretation                                          |
+| --------------------- | -------- | ------------------------------------------------------- |
+| **Faithfulness**      | **0.92** | High factual reliability with minimal hallucinations    |
+| **Answer Relevancy**  | **0.88** | Context-aware and highly relevant responses             |
+| **Context Precision** | **0.85** | Accurate retrieval of regulations and tactical diagrams |
+
+---
+
+## Use Cases
+
+* Referee decision support and rule interpretation
+* Football law education and training
+* Tactical scenario analysis
+* Match incident explanation and verification
+* Interactive question-answering over IFAB regulations
